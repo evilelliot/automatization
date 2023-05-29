@@ -1,0 +1,33 @@
+name: Build and Upload
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install Nuitka
+        run: |
+          pip install nuitka
+
+      - name: Build Python Script
+        run: |
+          nuitka --output-dir build --onefile ./script.py
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: exe
+          path: build/script.exe
