@@ -28,7 +28,7 @@ jobs:
 
       - name: Build Python Script
         run: |
-          nuitka --output-dir=./build --onefile ./script.py
+          echo 'Yes' | nuitka --output-dir=./build --onefile ./script.py
 
       - name: Create Release
         id: create_release
