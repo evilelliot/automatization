@@ -25,10 +25,10 @@ jobs:
       - name: Install colorama
         run: |
           pip install colorama
-          
+
       - name: Build Python Script
         run: |
-          nuitka --output-dir build --onefile ./script.py
+          nuitka --output-dir=./build --onefile ./script.py
 
       - name: Create Release
         id: create_release
