@@ -1,0 +1,43 @@
+{
+    "modem": {
+      "model": "Cisco ABC123",
+      "serial_number": "1234567890",
+      "firmware_version": "1.0.0",
+      "interface": {
+        "name": "GigabitEthernet0/0",
+        "ip_address": "192.168.0.1",
+        "subnet_mask": "255.255.255.0",
+        "description": "LAN interface"
+      },
+      "vlan": {
+        "id": 10,
+        "name": "VLAN10",
+        "description": "Internal network"
+      },
+      "routing": {
+        "protocol": "OSPF",
+        "networks": [
+          "192.168.0.0/24",
+          "10.0.0.0/8"
+        ]
+      },
+      "acl": {
+        "name": "ACL-OUT",
+        "rules": [
+          {
+            "id": 1,
+            "source_ip": "any",
+            "destination_ip": "10.0.0.0/8",
+            "action": "permit"
+          },
+          {
+            "id": 2,
+            "source_ip": "192.168.0.0/24",
+            "destination_ip": "any",
+            "action": "deny"
+          }
+        ]
+      }
+    }
+  }
+  
