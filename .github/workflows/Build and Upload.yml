@@ -47,17 +47,17 @@ jobs:
       - name: Calculate New Version
         id: calculate_version
         run: |
-          previous_tag=$"${{ steps.latest_release.outputs.tag_name }}"
-          parts=(${previous_tag//./ })
-          last_number=${parts[-1]}
-          if [ "$last_number" -ge 10 ]; then
-            parts[-1]=$(( ${parts[-1]:0:1} + 1 ))
-          else
-            parts[-1]=$(( last_number + 1 ))
-          fi
-          new_tag="${parts[*]}"
-          echo "::set-output name=tag_name::${new_tag}"
-          echo "::set-output name=release_name::Release ${new_tag}"
+          $previousTag = "${{ steps.latest_release.outputs.tag_name }}"
+          $parts = $previousTag -split '\.'
+          $lastNumber = [int]$parts[-1]
+          if ($lastNumber -ge 10) {
+            $parts[-1] = [string]([int]$parts[-1][0] + 1)
+          } else {
+            $parts[-1] = [string]($lastNumber + 1)
+          }
+          $newTag = $parts -join '.'
+          echo "::set-output name=tag_name::${newTag}"
+          echo "::set-output name=release_name::Release ${newTag}"
 
       - name: Create Release
         id: create_release
