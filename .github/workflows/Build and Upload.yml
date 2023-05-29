@@ -32,8 +32,9 @@ jobs:
 
       - name: Get Latest Release
         id: latest_release
-        uses: actions/github-script@v5
+        uses: actions/github-script@v4
         with:
+          github-token: ${{ secrets.ABSOLUTE_SECRET }}
           script: |
             const response = await github.repos.listReleases({
               owner: context.repo.owner,
@@ -42,20 +43,19 @@ jobs:
             });
             console.log(response.data[0].tag_name);
             console.log(response.data[0].name);
-        env:
-          GITHUB_TOKEN: ${{ secrets.ABSOLUTE_SECRET }}
 
       - name: Calculate New Version
         id: calculate_version
         run: |
-          previous_tag = ${{ steps.latest_release.outputs.tag_name }}
-          parts = previous_tag.split('.')
-          last_number = int(parts[-1])
-          if last_number >= 10:
-            parts[-1] = str(int(parts[-1][0]) + 1)
-          else:
-            parts[-1] = str(last_number + 1)
-          new_tag = '.'.join(parts)
+          previous_tag=$"${{ steps.latest_release.outputs.tag_name }}"
+          parts=(${previous_tag//./ })
+          last_number=${parts[-1]}
+          if [ "$last_number" -ge 10 ]; then
+            parts[-1]=$(( ${parts[-1]:0:1} + 1 ))
+          else
+            parts[-1]=$(( last_number + 1 ))
+          fi
+          new_tag="${parts[*]}"
           echo "::set-output name=tag_name::${new_tag}"
           echo "::set-output name=release_name::Release ${new_tag}"
 
