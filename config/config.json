@@ -1,0 +1,38 @@
+{
+    "nombre": "Configuración Compleja",
+    "version": "1.0",
+    "parametros": {
+      "parametro1": "valor1",
+      "parametro2": "valor2",
+      "parametro3": {
+        "subparametro1": "valor3",
+        "subparametro2": {
+          "subsubparametro1": "valor4",
+          "subsubparametro2": ["elemento1", "elemento2", "elemento3"]
+        }
+      }
+    },
+    "opciones": {
+      "opcion1": true,
+      "opcion2": false,
+      "opcion3": true
+    },
+    "servidores": [
+      {
+        "nombre": "Servidor1",
+        "ip": "192.168.1.10",
+        "puerto": 8080
+      },
+      {
+        "nombre": "Servidor2",
+        "ip": "192.168.1.20",
+        "puerto": 8888
+      },
+      {
+        "nombre": "Servidor3",
+        "ip": "192.168.1.30",
+        "puerto": 9090
+      }
+    ]
+  }
+  
